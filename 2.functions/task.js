@@ -15,7 +15,7 @@ function getArrayParams(arr) {
     return item + accumulate;
     }, 0);
     return sum;
-  avg = Number((sum/arr.length).toFixed(2)); 
+  let avg = Number((sum/arr.length).toFixed(2)); 
   return { min: min, max: max, avg: avg };
 }
 
