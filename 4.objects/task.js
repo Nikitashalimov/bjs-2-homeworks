@@ -23,23 +23,22 @@ Student.prototype.addMark = function (mark) {
 
 Student.prototype.addMarks = function (...mark) {
   if (this.marks === undefined) {
-    this.marks = [mark];
+    this.marks = [...mark];
   } else {
     this.marks.push(...mark);
   }
 }
 
 Student.prototype.getAverage = function () {
-  let sum = marks.reduce(function (accumulate, item) {
+  let sum = this.marks.reduce(function (accumulate, item) {
     return item + accumulate;
   }, 0);
-  return sum;
-  let avg = Number((sum / marks.length).toFixed(2));
-  console.log(avg);
+  let avg = Number(sum / this.marks.length);
+  return avg;
 }
 
 Student.prototype.exclude = function (reason) {
-  this.exclude = reason;
+  this.excluded = reason;
   delete this.subject;
   delete this.marks;
 }
