@@ -1,45 +1,103 @@
-function Student(name, gender, age) {
-  this.name = name;
-  this.gender = gender;
-  this.age = age;
+// Задача 1
+
+class PrintEditionItem {
+	constructor(name, releaseDate, pagesCount, state = 100, type = null) {
+		this.name = name;
+		this.releaseDate = releaseDate;
+		this.pagesCount = pagesCount;
+		this.state = state;
+		this.type = type;
+	}
 }
 
-let student1 = new Student("Vova", 'male', 28);
-let student2 = new Student("Alina", "female", 21);
-let student3 = new Student("Petya", "male", 24);
-
-Student.prototype.setSubject = function (subjectName) {
-  this.subject = subjectName;
-  console.log(student1.subject);
-};
-
-Student.prototype.addMark = function (mark) {
-  if (this.marks === undefined) {
-    this.marks = [mark];
-  } else {
-    this.marks.push(mark);
-  }
+fix() {
+	this.state = this.state * 1.5;
 }
 
-Student.prototype.addMarks = function (...mark) {
-  if (this.marks === undefined) {
-    this.marks = [mark];
-  } else {
-    this.marks.push(...mark);
-  }
+set upgradeState(state) {
+	if (this.state < 0) {
+		this._state = 0;
+	} else if (this.state > 100) {
+		this._state = 100;
+	} else {
+		this.state = this._state
+	}
 }
 
-Student.prototype.getAverage = function () {
-  let sum = marks.reduce(function (accumulate, item) {
-    return item + accumulate;
-  }, 0);
-  return sum;
-  let avg = Number((sum / marks.length).toFixed(2));
-  console.log(avg);
+get showState() {
+	return this._state
 }
 
-Student.prototype.exclude = function (reason) {
-  this.exclude = reason;
-  delete this.subject;
-  delete this.marks;
+class Magazine extends PrintEditionItem {
+	constructor() {
+		super(name);
+		super(releaseDate);
+		super(pagesCount);
+		super(state);
+		this.type = "magazine";
+	}
+}
+
+class Book extends PrintEditionItem {
+	constructor() {
+		super(name);
+		super(releaseDate);
+		super(pagesCount);
+		super(state);
+		this.type = "book";
+		this.author = this.author;
+	}
+}
+
+class NovelBook extends Book {
+	constructor() {
+		super(name);
+		super(releaseDate);
+		super(pagesCount);
+		super(state);
+		super(author);
+		this.type = "novel";
+	}
+}
+
+class FantasticBook extends Book {
+	constructor() {
+		super(name);
+		super(releaseDate);
+		super(pagesCount);
+		super(state);
+		super(author);
+		this.type = "fantastic";
+	}
+}
+
+class DetectiveBook extends Book {
+	constructor() {
+		super(name);
+		super(releaseDate);
+		super(pagesCount);
+		super(state);
+		super(author);
+		this.type = "detective";
+	}
+}
+
+
+// Задача 2
+
+class Library {
+	constructor(name, books) {
+		this.name = name;
+		this.books = [];
+	}
+}
+
+addBook(book) {
+	if (state > 30) {
+		this.book.push(...book);
+	}
+}
+
+findBookBy(type, value) {
+
 }
