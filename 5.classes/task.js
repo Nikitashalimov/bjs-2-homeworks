@@ -11,54 +11,42 @@ class PrintEditionItem {
 	fix() {
 		this.state = this.state * 1.5;
 	}
-	set upgradeState(state) {
-		if (this.state < 0) {
+	set state(value) {
+		if (value < 0) {
 			this._state = 0;
-		} else if (this.state > 100) {
+		} else if (value > 100) {
 			this._state = 100;
 		} else {
-			this.state = this._state
+			this._state = value
 		}
 	}
-	get showState() {
+	get state() {
 		return this._state
 	}
 }
 
 class Magazine extends PrintEditionItem {
-	constructor() {
-		super(name, releaseDate, pagesCount, state);
-		this.type = "magazine";
-	}
+	type = "magazine";
 }
 
 class Book extends PrintEditionItem {
-	constructor() {
+	constructor(name, releaseDate, pagesCount, state, author) {
 		super(name, releaseDate, pagesCount, state, author);
-		this.type = "book";
 		this.author = this.author;
 	}
+	type = "book";
 }
 
 class NovelBook extends Book {
-	constructor() {
-		super(name, releaseDate, pagesCount, state, author);
-		this.type = "novel";
-	}
+	type = "novel";
 }
 
 class FantasticBook extends Book {
-	constructor() {
-		super(name, releaseDate, pagesCount, state, author);
-		this.type = "fantastic";
-	}
+	type = "fantastic";
 }
 
 class DetectiveBook extends Book {
-	constructor() {
-		super(name, releaseDate, pagesCount, state, author);
-		this.type = "detective";
-	}
+	type = "detective";
 }
 
 
@@ -66,25 +54,25 @@ class DetectiveBook extends Book {
 
 class Library {
 	constructor(name, books) {
-		this.name = name;
+		this.name = "";
 		this.books = [];
 	}
 	addBook(book) {
-		if (state > 30) {
-			this.book.push(...book);
+		if (book.state > 30) {
+			this.books.push(book);
 		}
 	}
 	findBookBy(type, value) {
 		let book = null;
 		for (const item of this.books) {
-			if (item(type) === value) {
+			if (item[type] === value) {
 				book = item;
 			}
 		}
 		return book;
 	}
 	giveBookByName(bookName) {
-		for (let i = 0, i < this.books.length, i++) {
+		for (let i = 0; i < this.books.length; i++) {
 			if (this.books[i].name === bookName) {
 				book = this.books.splice(i, 1);
 				return book[i];
