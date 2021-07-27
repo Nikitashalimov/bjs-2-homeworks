@@ -53,8 +53,8 @@ class DetectiveBook extends Book {
 // Задача 2
 
 class Library {
-	constructor(name, books) {
-		this.name = "";
+	constructor(name) {
+		this.name = name;
 		this.books = [];
 	}
 	addBook(book) {
@@ -72,16 +72,70 @@ class Library {
 		return book;
 	}
 	giveBookByName(bookName) {
+		let book = null;
 		for (let i = 0; i < this.books.length; i++) {
 			if (this.books[i].name === bookName) {
 				book = this.books.splice(i, 1);
 				return book[i];
-			} else {
-				return null;
 			}
 		}
+		return book;
 	}
 }
 
+
 // Задача 3
 
+function Student(name, gender, age) {
+	this.name = name;
+	this.gender = gender;
+	this.age = age;
+}
+
+
+// Прошлый код
+
+function Student(name, gender, age) {
+	this.name = name;
+	this.gender = gender;
+	this.age = age;
+}
+
+let student1 = new Student("Vova", 'male', 28);
+let student2 = new Student("Alina", "female", 21);
+let student3 = new Student("Petya", "male", 24);
+
+Student.prototype.setSubject = function (subjectName) {
+	this.subject = subjectName;
+	console.log(student1.subject);
+};
+
+Student.prototype.addMark = function (mark) {
+	if (this.marks === undefined) {
+		this.marks = [mark];
+	} else {
+		this.marks.push(mark);
+	}
+}
+
+Student.prototype.addMarks = function (...mark) {
+	if (this.marks === undefined) {
+		this.marks = [...mark];
+	} else {
+		this.marks.push(...mark);
+	}
+}
+
+Student.prototype.getAverage = function () {
+	let sum = this.marks.reduce(function (accumulate, item) {
+		return item + accumulate;
+	}, 0);
+	let avg = Number(sum / this.marks.length);
+	return avg;
+}
+
+Student.prototype.exclude = function (reason) {
+	this.excluded = reason;
+	delete this.subject;
+	delete this.marks;
+}
