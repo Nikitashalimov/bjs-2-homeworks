@@ -103,30 +103,24 @@ class Student {
 			console.log('Ошибка, оценка должна быть числом от 1 до 5')
 		}
 	}
-	addMarks(subjectName, ...mark) {
+	addMark(subjectName, ...mark) {
 		if (this.subject(subjectName) === undefined) {
 			this.subject[subjectName] = [...mark]
 		} else {
 			this.subject[subjectName] = [...this.subjectName, ...mark]
 		}
 	}
+	getAverageBySubject(subjectName) {
+		if (this.subject[subjectName] === undefined) {
+			console.log("Несуществующий предмет");
+		}
+		let sum = this.mark.reduce(function (accumulate, item) {
+			return item + accumulate;
+		}, 0);
+		let avg = Number(sum / this.mark.length);
+		return avg;
+	}
+	getAverage() {
+
+	}
 }
-
-
-// Прошлый код
-
-/*
-Student.prototype.getAverage = function () {
-	let sum = this.marks.reduce(function (accumulate, item) {
-		return item + accumulate;
-	}, 0);
-	let avg = Number(sum / this.marks.length);
-	return avg;
-}
-
-Student.prototype.exclude = function (reason) {
-	this.excluded = reason;
-	delete this.subject;
-	delete this.marks;
-}
-*/
