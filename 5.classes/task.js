@@ -76,7 +76,7 @@ class Library {
 		for (let i = 0; i < this.books.length; i++) {
 			if (this.books[i].name === bookName) {
 				book = this.books.splice(i, 1);
-				return book[i];
+				return book[0];
 			}
 		}
 		return book;
@@ -92,35 +92,41 @@ class Student {
 		this.gender = gender;
 		this.age = age;
 		this.subject = {};
+		this.mark = {};
 	}
 	setSubject(subjectName) {
 		this.subject = subjectName;
 	}
-	markControl(mark, subjectName) {
-		if (1 < mark < 5) {
+	addMark(subjectName, mark) {
+		if (1 <= mark <= 5) {
 			this.subject[subjectName] = [mark];
 		} else {
 			console.log('Ошибка, оценка должна быть числом от 1 до 5')
 		}
 	}
-	addMark(subjectName, ...mark) {
-		if (this.subject(subjectName) === undefined) {
-			this.subject[subjectName] = [...mark]
-		} else {
-			this.subject[subjectName] = [...this.subjectName, ...mark]
-		}
-	}
 	getAverageBySubject(subjectName) {
 		if (this.subject[subjectName] === undefined) {
 			console.log("Несуществующий предмет");
+		} else {
+			let sum = this.subject.subjectName.reduce(function (accumulate, item) {
+				return item + accumulate;
+			}, 0);
+			let avg = Number(sum / this.subject.subjectName.length);
+			return avg;
 		}
-		let sum = this.mark.reduce(function (accumulate, item) {
-			return item + accumulate;
-		}, 0);
-		let avg = Number(sum / this.mark.length);
-		return avg;
 	}
 	getAverage() {
-
+		let sumAll = 0;
+		let avgAll = 0;
+		for (let key in this.subject) {
+			sumAll += this.getAverageBySubject(key)
+		}
+		avgAll = sumAll / this.subject.length;
+		return avgAll;
+	}
+	exclude = function (motive) {
+		delete this.subject;
+		this.excluded = motive;
 	}
 }
+
