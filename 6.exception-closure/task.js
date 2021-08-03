@@ -1,19 +1,18 @@
 // Задача 1
 
 const parseCount = (a) => {
-	if (Number.parseInt(a) === NaN) {
-		const numberError = new Error("Невалидное значение");
-		throw numberError;
+	if (isNaN(Number.parseInt(a))) {
+		throw new Error("Невалидное значение");
 	}
 	return Number.parseInt(a);
 }
 
 const validateCount = (a) => {
 	try {
-		parseCount(a);
+		return parseCount(a);
 	}
 	catch (error) {
-		console.log('Произошла ошибка')
+		return Error;
 	}
 }
 
@@ -22,31 +21,30 @@ const validateCount = (a) => {
 class Triangle {
 	constructor(a, b, c) {
 		if (((a + b) < c) || ((b + c) < a) || ((a + c) < b)) {
-			const sideError = new Error("Треугольник с такими сторонами не существует");
-			throw sideError;
-		} else {
-			this.a = a;
-			this.b = b;
-			this.c = c;
+			throw new Error("Треугольник с такими сторонами не существует");
 		}
-	};
+		this.a = a;
+		this.b = b;
+		this.c = c;
+	}
 	getPerimeter() {
-		let P = this.a + this.b + this.c;
-		return P;
+		return (this.a + this.b + this.c);
 	}
 	getArea() {
-		let p = ((this.a + this.b + this.c) / 2);
+		let p = (getPerimeter() / 2);
 		let S = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c))
-		return S.toFixed(3);
+		return Number(S.toFixed(3));
 	}
 }
+
+
 
 const getTriangle = (a, b, c) => {
 	try {
 		return new Triangle(a, b, c);
 	}
 	catch (error) {
-		const errorTriangle = {
+		return Error = {
 			getPerimeter() {
 				return "Ошибка! Треугольник не существует";
 			},
@@ -54,7 +52,5 @@ const getTriangle = (a, b, c) => {
 				return "Ошибка! Треугольник не существует";
 			}
 		}
-		return errorTriangle;
 	}
 }
-
