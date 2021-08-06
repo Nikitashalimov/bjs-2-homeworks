@@ -11,7 +11,7 @@ const validateCount = (a) => {
 	try {
 		return parseCount(a);
 	}
-	catch (error) {
+	catch (Error) {
 		return Error;
 	}
 }
@@ -31,20 +31,18 @@ class Triangle {
 		return (this.a + this.b + this.c);
 	}
 	getArea() {
-		let p = (getPerimeter() / 2);
+		let p = (this.getPerimeter() / 2);
 		let S = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c))
 		return Number(S.toFixed(3));
 	}
 }
-
-
 
 const getTriangle = (a, b, c) => {
 	try {
 		return new Triangle(a, b, c);
 	}
 	catch (error) {
-		return Error = {
+		return {
 			getPerimeter() {
 				return "Ошибка! Треугольник не существует";
 			},
@@ -54,3 +52,15 @@ const getTriangle = (a, b, c) => {
 		}
 	}
 }
+
+
+/*
+let triangle1 = new Triangle(4, 4, 2);
+let triangle2 = new Triangle(8, 8, 4);
+let triangle3 = new Triangle(3, 3, 3);
+
+triangle2['c'];
+triangle2.getPerimeter();
+triangle1.getArea();
+getTriangle(4, 4, 2);
+*/
