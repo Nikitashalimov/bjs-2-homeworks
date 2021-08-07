@@ -86,6 +86,7 @@ class Library {
 
 // Задача 3
 
+
 class Student {
 	constructor(name, gender, age) {
 		this.name = name;
@@ -94,12 +95,13 @@ class Student {
 		this.subject = {};
 		this.mark = {};
 	}
-	setSubject(subjectName) {
-		this.subject = subjectName;
-	}
-	addMark(subjectName, mark) {
-		if (1 <= mark <= 5) {
-			this.subject[subjectName] = [mark];
+	addMark(mark, subjectName) {
+		if ((1 <= mark && mark <= 5)) {
+			if (this.subject[subjectName] === undefined) {
+				this.subject[subjectName] = [mark];
+			} else {
+				this.subject[subjectName].push(mark);
+			}
 		} else {
 			console.log('Ошибка, оценка должна быть числом от 1 до 5')
 		}
@@ -108,10 +110,10 @@ class Student {
 		if (this.subject[subjectName] === undefined) {
 			console.log("Несуществующий предмет");
 		} else {
-			let sum = this.subject.subjectName.reduce(function (accumulate, item) {
+			let sum = this.subject[subjectName].reduce(function (accumulate, item) {
 				return item + accumulate;
 			}, 0);
-			let avg = Number(sum / this.subject.subjectName.length);
+			let avg = Number(sum / this.subject[subjectName].length);
 			return avg;
 		}
 	}
@@ -121,7 +123,7 @@ class Student {
 		for (let key in this.subject) {
 			sumAll += this.getAverageBySubject(key)
 		}
-		avgAll = sumAll / this.subject.length;
+		avgAll = sumAll / Object.keys(this.subject).length;
 		return avgAll;
 	}
 	exclude = function (motive) {
@@ -129,4 +131,3 @@ class Student {
 		this.excluded = motive;
 	}
 }
-
