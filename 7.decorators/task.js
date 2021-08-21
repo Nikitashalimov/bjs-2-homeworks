@@ -47,6 +47,7 @@ function debounceDecorator2(func) {
       setTimeout(() => {
         timeoutFlag = false;
         func(...args);
+        wrapper.count++;
       });
     }
   };
