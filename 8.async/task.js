@@ -23,7 +23,10 @@ class AlarmClock {
 		} console.log('Будильник с ID ${id} не удален')
 	}
 	//`getCurrentFormattedTime` - возвращает текущее время в строковом формате `HH:MM`
-	getCurrentFormattedTime() { }
+	getCurrentFormattedTime() {
+		let nowTime = (new Date().getHours()) + ':' + (new Date().getMinutes());
+		console.log(nowTime);
+	}
 	//`start` - запускает все звонки
 	start() { }
 	//`stop` - останавливает выполнение всех звонков
