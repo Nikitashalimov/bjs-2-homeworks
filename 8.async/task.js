@@ -26,11 +26,32 @@ class AlarmClock {
 	getCurrentFormattedTime() {
 		let nowTime = (new Date().getHours()) + ':' + (new Date().getMinutes());
 		console.log(nowTime);
+		return nowTime;
 	}
 	//`start` - запускает все звонки
-	start() { }
+	start() {
+		function checkClock(alarm) {
+			if (alarm.time == getCurrentFormattedTime()) {
+				callback();
+			}
+		}
+		if (alarm.id == null) {
+			let result = setInterval((interval), 1000)
+			function interval() {
+				for (let i = 0; i < this.alarmCollection.length; i++) {
+					checkClock(alarm);
+				};
+			}
+			alarm.id = result;
+		}
+	}
 	//`stop` - останавливает выполнение всех звонков
-	stop() { }
+	stop(alarm) {
+		if (alarm.id !== null) {
+			clearInterval();
+			delete alarm.id;
+		}
+	}
 	//`printAlarms` - печатает все звонки
 	printAlarms() {
 		console.log('Печать всех будильников в количестве: ' + this.alarmCollection.length)
@@ -39,9 +60,7 @@ class AlarmClock {
 		})
 	}
 	//`clearAlarms` - удаляет все звонки
-	clearAlarms() { }
+	clearAlarms() {
+		this.alarmCollection = [];
+	}
 }
-
-
-new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
-new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
