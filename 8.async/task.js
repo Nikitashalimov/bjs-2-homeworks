@@ -5,11 +5,11 @@ class AlarmClock {
 	}
 	//`addClock` - добавляет новый звонок в коллекцию существующих. 
 	addClock(time, callback, id) {
-		if (this.id == 'undefined') {
+		if (!id) {
 			throw new Error('error text')
 		}
 		if (this.alarmCollection.some(elem => elem.id == id)) {
-			console.error('Будильник с ID ${id} уже имеется');
+			console.error(`Будильник с ID ${id} уже имеется`);
 			return
 		}
 		this.alarmCollection.push({ time, callback, id })
@@ -18,38 +18,37 @@ class AlarmClock {
 	removeClock(id) {
 		const index = this.alarmCollection.findIndex(item => item.id == id);
 		if (index !== -1) {
-			alarmCollection.splice(index, 1);
-			console.log('Будильник с ID ${id} удален')
-		} console.log('Будильник с ID ${id} не удален')
+			this.alarmCollection.splice(index, 1);
+			return true;
+		} return false;
 	}
 	//`getCurrentFormattedTime` - возвращает текущее время в строковом формате `HH:MM`
 	getCurrentFormattedTime() {
-		let nowTime = (new Date().getHours()) + ':' + (new Date().getMinutes());
+		let hours = (new Date().getHours());
+		let minutes = new Date().getMinutes();
+		hours < 10 ? hours = '0' + hours : hours;
+		minutes < 10 ? minutes = '0' + minutes : minutes;
+		let nowTime = hours + ':' + minutes;
 		console.log(nowTime);
 		return nowTime;
 	}
 	//`start` - запускает все звонки
 	start() {
-		function checkClock(alarm) {
-			if (alarm.time == getCurrentFormattedTime()) {
-				callback();
+		let checkClock = (alarm) => {
+			if (alarm.time == this.getCurrentFormattedTime()) {
+				alarm.callback();
 			}
 		}
-		if (alarm.id == null) {
-			let result = setInterval((interval), 1000)
-			function interval() {
-				for (let i = 0; i < this.alarmCollection.length; i++) {
-					checkClock(alarm);
-				};
-			}
-			alarm.id = result;
+		if (!this.timerId) {
+			let result = setInterval((this.alarmCollection.forEach(item => checkClock(item))), 1000);
+			this.intervalId = result;
 		}
 	}
 	//`stop` - останавливает выполнение всех звонков
-	stop(alarm) {
-		if (alarm.id !== null) {
-			clearInterval();
-			delete alarm.id;
+	stop() {
+		if (this.timerId) {
+			clearInterval(this.timerId);
+			this.timerId = null;
 		}
 	}
 	//`printAlarms` - печатает все звонки
@@ -61,6 +60,29 @@ class AlarmClock {
 	}
 	//`clearAlarms` - удаляет все звонки
 	clearAlarms() {
+		this.stop();
 		this.alarmCollection = [];
 	}
+}
+
+function testCase() {
+	let alarm = new AlarmClock();
+	alarm.addClock(alarm.getCurrentFormattedTime(), () => {
+		console.log('Подъем!');
+	}, 1);
+	let dateAlarm1 = new Date();
+	dateAlarm1.setMinutes(dateAlarm1.getMinutes() + 1);
+	alarm.addClock(alarm.getCurrentFormattedTime(), () => {
+		console.log('ПОООДЪЁЁЁЁЁЁМ!');
+		alarm.removeClock(2)
+	}, 2);
+	dateAlarm2 = new Date();
+	dateAlarm2.setMinutes(dateAlarm2.getMinutes() + 2);
+	alarm.addClock(alarm.getCurrentFormattedTime(), () => {
+		console.log('РОТАА!!!!! ПОООООДЪЁЁМ!!!!!!');
+		alarm.stop();
+		alarm.clearAlarms()
+	}, 3);
+	alarm.printAlarms();
+	alarm.start();
 }
