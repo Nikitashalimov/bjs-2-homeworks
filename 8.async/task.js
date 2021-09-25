@@ -40,8 +40,8 @@ class AlarmClock {
 			}
 		}
 		if (!this.timerId) {
-			let result = setInterval((this.alarmCollection.forEach(item => checkClock(item))), 1000);
-			this.intervalId = result;
+			let result = setInterval(() => this.alarmCollection.forEach(item => checkClock(item)), 1000);
+			this.timerId = result;
 		}
 	}
 	//`stop` - останавливает выполнение всех звонков
